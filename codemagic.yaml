@@ -53,6 +53,7 @@ workflows:
           export PATH=$PATH:$FCI_BUILD_DIR/sonar-scanner/bin
           
           if [[ $TARGET != "main"]]
+          then
             sonar-scanner \
             -Dsonar.projectKey=$SONAR_PROJECT_KEY \
             -Dsonar.organization=$SONAR_ORG_KEY \
