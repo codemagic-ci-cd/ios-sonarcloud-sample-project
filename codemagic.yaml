@@ -51,17 +51,34 @@ workflows:
           fi
           echo "TARGET is set to ${TARGET}"
           export PATH=$PATH:$FCI_BUILD_DIR/sonar-scanner/bin
-          sonar-scanner \
-          -Dsonar.projectKey=$SONAR_PROJECT_KEY \
-          -Dsonar.organization=$SONAR_ORG_KEY \
-          -Dsonar.host.url=https://sonarcloud.io \
-          -Dsonar.login=$SONAR_TOKEN \
-          -Dsonar.projectVersion=1.0.0-cm \
-          -Dsonar.sources=. \
-          -Dsonar.cfamily.build-wrapper-output.bypass=true \
-          -Dsonar.coverageReportPaths=sonarqube-generic-coverage.xml \
-          -Dsonar.c.file.suffixes=- \
-          -Dsonar.cpp.file.suffixes=- \
-          -Dsonar.objc.file.suffixes=- \
-          -Dsonar.branch.name=$FCI_BRANCH \
-          -Dsonar.branch.target=$TARGET
+          
+          if [[ $TARGET != "main"]]
+            sonar-scanner \
+            -Dsonar.projectKey=$SONAR_PROJECT_KEY \
+            -Dsonar.organization=$SONAR_ORG_KEY \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.login=$SONAR_TOKEN \
+            -Dsonar.projectVersion=1.0.0-cm \
+            -Dsonar.sources=. \
+            -Dsonar.cfamily.build-wrapper-output.bypass=true \
+            -Dsonar.coverageReportPaths=sonarqube-generic-coverage.xml \
+            -Dsonar.c.file.suffixes=- \
+            -Dsonar.cpp.file.suffixes=- \
+            -Dsonar.objc.file.suffixes=- \
+            -Dsonar.branch.name=$FCI_BRANCH \
+            -Dsonar.branch.target=$TARGET
+          else
+            sonar-scanner \
+            -Dsonar.projectKey=$SONAR_PROJECT_KEY \
+            -Dsonar.organization=$SONAR_ORG_KEY \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.login=$SONAR_TOKEN \
+            -Dsonar.projectVersion=1.0.0-cm \
+            -Dsonar.sources=. \
+            -Dsonar.cfamily.build-wrapper-output.bypass=true \
+            -Dsonar.coverageReportPaths=sonarqube-generic-coverage.xml \
+            -Dsonar.c.file.suffixes=- \
+            -Dsonar.cpp.file.suffixes=- \
+            -Dsonar.objc.file.suffixes=- \
+            -Dsonar.branch.name=$FCI_BRANCH \
+          fi
