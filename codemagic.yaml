@@ -52,7 +52,7 @@ workflows:
           echo "TARGET is set to ${TARGET}"
           export PATH=$PATH:$FCI_BUILD_DIR/sonar-scanner/bin
           
-          if [[ $TARGET != "main"]]
+          if [[ $TARGET != "main" ]]
           then
             sonar-scanner \
             -Dsonar.projectKey=$SONAR_PROJECT_KEY \
