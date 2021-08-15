@@ -81,5 +81,5 @@ workflows:
             -Dsonar.c.file.suffixes=- \
             -Dsonar.cpp.file.suffixes=- \
             -Dsonar.objc.file.suffixes=- \
-            echo -Dsonar.branch.name=$FCI_BRANCH
+            $(if [ 1 = 1 ]; then echo -Dsonar.branch.name=$FCI_BRANCH; fi)
           fi
