@@ -12,6 +12,7 @@ struct swiftqubeApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+            //add a comment
         }
     }
 }
