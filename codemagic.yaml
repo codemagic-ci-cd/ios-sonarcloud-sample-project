@@ -14,14 +14,11 @@ workflows:
         cocoapods: default
       triggering:
         events:
-          - push
           - pull_request
         branch_patterns:
           - pattern: branch-develop
             include: true
             source: true
-          - pattern: main
-            include: true
       scripts:
         - name: Install Sonar Scanner
           script: | 
@@ -41,15 +38,7 @@ workflows:
           bash xccov-to-sonarqube-generic.sh Build/Logs/Test/*.xcresult/ > sonarqube-generic-coverage.xml
         - |
           # Generate and upload code analysis report
-          if [[ $FCI_PULL_REQUEST == true ]]
-          then
-            echo "Is a pull request"
-            TARGET=$FCI_PULL_REQUEST_DEST
-          else 
-            echo "NOT a pull request"
-            TARGET=$FCI_BRANCH
-          fi
-          echo "TARGET is set to ${TARGET}"
+
           export PATH=$PATH:$FCI_BUILD_DIR/sonar-scanner/bin
           
           sonar-scanner \
@@ -64,9 +53,6 @@ workflows:
            -Dsonar.c.file.suffixes=- \
            -Dsonar.cpp.file.suffixes=- \
            -Dsonar.objc.file.suffixes=- \
-           $(if [[ $TARGET != "main" ]]
-           then
-            echo -Dsonar.branch.name=$FCI_BRANCH -Dsonar.branch.target=$TARGET
-           else
-            echo -Dsonar.branch.name=$FCI_BRANCH
-           fi)           
+           -Dsonar.branch.name=$FCI_BRANCH \
+           -Dsonar.branch.target=$FCI_PULL_REQUEST_DEST
+       
