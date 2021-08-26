@@ -34,6 +34,7 @@
 		0A33564626C4519C00B167B5 /* swiftqubeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = swiftqubeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A33564826C4519C00B167B5 /* swiftqubeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = swiftqubeTests.swift; sourceTree = "<group>"; };
 		0A33564A26C4519C00B167B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0AB320D526D4468D001BAA02 /* swiftqube.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = swiftqube.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +76,7 @@
 		0A33561F26C3D21900B167B5 /* swiftqube */ = {
 			isa = PBXGroup;
 			children = (
+				0AB320D526D4468D001BAA02 /* swiftqube.entitlements */,
 				0A33562026C3D21900B167B5 /* swiftqubeApp.swift */,
 				0A33562226C3D21900B167B5 /* ContentView.swift */,
 				0A33562426C3D21C00B167B5 /* Assets.xcassets */,
@@ -345,6 +347,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = swiftqube/swiftqube.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"swiftqube/Preview Content\"";
 				DEVELOPMENT_TEAM = X8NNQ9CYL2;
@@ -367,6 +370,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = swiftqube/swiftqube.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"swiftqube/Preview Content\"";
 				DEVELOPMENT_TEAM = X8NNQ9CYL2;
