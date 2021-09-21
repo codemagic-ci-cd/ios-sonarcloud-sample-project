@@ -1,6 +1,6 @@
 workflows:
-    ios-sonarcloud-debug:
-      name: iOS sonarcloud debug
+    ios-sonarcloud:
+      name: iOS sonarcloud
       instance_type: mac_pro
       environment:
         vars:
@@ -14,9 +14,9 @@ workflows:
         cocoapods: default
       triggering:
         events:
-          - pull_request
+          - push
         branch_patterns:
-          - pattern: branch-develop
+          - pattern: main
             include: true
             source: true
       scripts:
@@ -24,7 +24,7 @@ workflows:
           script: | 
             brew install sonar-scanner
         - name: Generate debug build
-          script: |
+          script: | 
             xcodebuild \
             -project "$XCODE_PROJECT" \
             -scheme "$XCODE_SCHEME" \
@@ -34,24 +34,23 @@ workflows:
             -enableCodeCoverage YES \
             clean build test CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
         - name: Convert coverage report to Sonarqube format
-          script: |
+          script: |             
             bash xccov-to-sonarqube-generic.sh Build/Logs/Test/*.xcresult/ > sonarqube-generic-coverage.xml
         - name: Generate and upload code analysis report
-          script: |
+          script: |  
             export PATH=$PATH:$FCI_BUILD_DIR/sonar-scanner/bin
-          
+            
             sonar-scanner \
-             -Dsonar.projectKey=$SONAR_PROJECT_KEY \
-             -Dsonar.organization=$SONAR_ORG_KEY \
-             -Dsonar.host.url=https://sonarcloud.io \
-             -Dsonar.login=$SONAR_TOKEN \
-             -Dsonar.projectVersion=1.0.0-cm \
-             -Dsonar.sources=. \
-             -Dsonar.cfamily.build-wrapper-output.bypass=true \
-             -Dsonar.coverageReportPaths=sonarqube-generic-coverage.xml \
-             -Dsonar.c.file.suffixes=- \
-             -Dsonar.cpp.file.suffixes=- \
-             -Dsonar.objc.file.suffixes=- \
-             -Dsonar.branch.name=$FCI_BRANCH \
-             -Dsonar.branch.target=$FCI_PULL_REQUEST_DEST
-       
+            -Dsonar.projectKey=$SONAR_PROJECT_KEY \
+            -Dsonar.organization=$SONAR_ORG_KEY \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.login=$SONAR_TOKEN \
+            -Dsonar.projectVersion=1.0.0 \
+            -Dsonar.sources=. \
+            -Dsonar.cfamily.build-wrapper-output.bypass=true \
+            -Dsonar.coverageReportPaths=sonarqube-generic-coverage.xml \
+            -Dsonar.c.file.suffixes=- \
+            -Dsonar.cpp.file.suffixes=- \
+            -Dsonar.objc.file.suffixes=- \
+            -Dsonar.branch.name=$FCI_BRANCH \
+            -Dsonar.branch.target=$FCI_PULL_REQUEST_DEST
