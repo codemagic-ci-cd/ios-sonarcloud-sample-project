@@ -23,36 +23,35 @@ workflows:
         - name: Install Sonar Scanner
           script: | 
             brew install sonar-scanner
-        - |
-          # Generate debug build
-          xcodebuild \
-          -project "$XCODE_PROJECT" \
-          -scheme "$XCODE_SCHEME" \
-          -sdk iphonesimulator \
-          -destination 'platform=iOS Simulator,name=iPhone 12 Pro,OS=14.5' \
-          -derivedDataPath Build/ \
-          -enableCodeCoverage YES \
-          clean build test CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
-        - |
-          # convert coverage report to sonarqube format
-          bash xccov-to-sonarqube-generic.sh Build/Logs/Test/*.xcresult/ > sonarqube-generic-coverage.xml
-        - |
-          # Generate and upload code analysis report
-
-          export PATH=$PATH:$FCI_BUILD_DIR/sonar-scanner/bin
+        - name: Generate debug build
+          script: |
+            xcodebuild \
+            -project "$XCODE_PROJECT" \
+            -scheme "$XCODE_SCHEME" \
+            -sdk iphonesimulator \
+            -destination 'platform=iOS Simulator,name=iPhone 12 Pro,OS=14.5' \
+            -derivedDataPath Build/ \
+            -enableCodeCoverage YES \
+            clean build test CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
+        - name: Convert coverage report to Sonarqube format
+          script: |
+            bash xccov-to-sonarqube-generic.sh Build/Logs/Test/*.xcresult/ > sonarqube-generic-coverage.xml
+        - name: Generate and upload code analysis report
+          script: |
+            export PATH=$PATH:$FCI_BUILD_DIR/sonar-scanner/bin
           
-          sonar-scanner \
-           -Dsonar.projectKey=$SONAR_PROJECT_KEY \
-           -Dsonar.organization=$SONAR_ORG_KEY \
-           -Dsonar.host.url=https://sonarcloud.io \
-           -Dsonar.login=$SONAR_TOKEN \
-           -Dsonar.projectVersion=1.0.0-cm \
-           -Dsonar.sources=. \
-           -Dsonar.cfamily.build-wrapper-output.bypass=true \
-           -Dsonar.coverageReportPaths=sonarqube-generic-coverage.xml \
-           -Dsonar.c.file.suffixes=- \
-           -Dsonar.cpp.file.suffixes=- \
-           -Dsonar.objc.file.suffixes=- \
-           -Dsonar.branch.name=$FCI_BRANCH \
-           -Dsonar.branch.target=$FCI_PULL_REQUEST_DEST
+            sonar-scanner \
+             -Dsonar.projectKey=$SONAR_PROJECT_KEY \
+             -Dsonar.organization=$SONAR_ORG_KEY \
+             -Dsonar.host.url=https://sonarcloud.io \
+             -Dsonar.login=$SONAR_TOKEN \
+             -Dsonar.projectVersion=1.0.0-cm \
+             -Dsonar.sources=. \
+             -Dsonar.cfamily.build-wrapper-output.bypass=true \
+             -Dsonar.coverageReportPaths=sonarqube-generic-coverage.xml \
+             -Dsonar.c.file.suffixes=- \
+             -Dsonar.cpp.file.suffixes=- \
+             -Dsonar.objc.file.suffixes=- \
+             -Dsonar.branch.name=$FCI_BRANCH \
+             -Dsonar.branch.target=$FCI_PULL_REQUEST_DEST
        
