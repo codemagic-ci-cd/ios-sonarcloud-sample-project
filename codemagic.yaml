@@ -10,7 +10,7 @@ workflows:
           SONAR_TOKEN: Encrypted(Z0FBQUFBQmhGQmkxZ255VFp4UHVxVHpESHhRSDJGdFN2Mkw5SmhuUGF4UmFacVZEdkQ0ZzdYNkVyVXRlRy15RDc1RV9fLU14ZWJpbjB3ZGc5S2llNWxrbU55bmZOQ1hlY1hWOTZNdG1lT08tRFJzdXhIa2ZoUGI1Tm5TMGN0d2Rua1l0ZEI3bjNXdlU=) # <-- Put your encrypted Sonar Cloud token here
           SONAR_PROJECT_KEY: Encrypted(Z0FBQUFBQmhGQmZ6Qm9yS3BCaU1sXzhzSDFWUk1uYXBGVkFvbERTVE1Sb2VEZ0RSaWkwWDRuS0ZmbGJ5RTFjeC13cG9rSG8wRjYwMDgxTWM1aHRiSEcyUjNLTzgzOVRxRGxIVkFDdXc0Y1ROenFxNEw1QjNUNWtYTFNNZWd2SWhiNkw0QTF4MXFQRng=) # <-- Put your encrypted Sonar Cloud project key here
           SONAR_ORG_KEY: Encrypted(Z0FBQUFBQmhGQmdrd3BYMzFsRk5tUmh4X1F5M3BMSVNFdENzOTZIRXJNX2UtVlFsOTdYcnJNRGVqYjFnNG1OdFdUUnowR2dsU0VIcmU0WFlaajhicmpsVnU0V3pINm5NV3c9PQ==) # <-- Put your encrypted Sonar Cloud organisation key here
-        xcode: 12.5
+        xcode: 14.1
         cocoapods: default
       triggering:
         events:
