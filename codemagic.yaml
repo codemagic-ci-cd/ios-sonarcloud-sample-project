@@ -15,10 +15,11 @@ workflows:
       triggering:
         events:
           - push
+          - pull_request
         branch_patterns:
           - pattern: main
             include: true
-            source: true
+            source: false
       scripts:
         - name: Install Sonar Scanner
           script: | 
