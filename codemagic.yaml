@@ -15,7 +15,6 @@ workflows:
       triggering:
         events:
           - pull_request
-          - push
         branch_patterns:
           - pattern: branch-develop
             include: true
