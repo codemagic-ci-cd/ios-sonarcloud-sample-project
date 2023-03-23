@@ -23,7 +23,7 @@ workflows:
       scripts:
         - name: Install Sonar Scanner
           script: | 
-            brew install sonar-scanner
+            HOMEBREW_NO_AUTO_UPDATE=1 brew install sonar-scanner
         - name: Generate debug build
           script: | 
             xcodebuild \
