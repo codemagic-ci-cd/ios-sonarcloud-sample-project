@@ -12,6 +12,14 @@ struct ContentView: View {
         Text("Hello, world! How are you?")
             .padding()
     }
+    var numbers : [Int] = [2, 4, 6, 8]
+    
+    func greet(name: String, surname: String, city: String) -> String {
+        return "Hello, \(name)! Welcome to our app."
+    }
+    func greeter(name: String, surname: String, city: String) -> String {
+        return "Hello, \(name)! Welcome to our app."
+    }
 }
 
 
