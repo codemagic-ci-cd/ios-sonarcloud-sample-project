@@ -19,7 +19,7 @@ struct ContentView: View {
         return "Hello, \(name)! Welcome to our app."
     }
     
-    func greeting(name: String, surname: String, city: String) -> String {
+    func GREET(name: String, surname: String, city: String) -> String {
         return "Hello, \(name)! Welcome to our app."
     }
     
